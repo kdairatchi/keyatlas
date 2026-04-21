@@ -1,0 +1,79 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# hunter.yaml — Prowlr stack hunter config
+#
+# SETUP:
+#   cp hunter.yaml.example ~/claude-bug-bounty/config/hunter.yaml
+#   Fill in your handles below (not the API keys — those stay in ~/.zshrc)
+#
+# All ${VAR} references are resolved from environment variables at load time.
+# Never commit hunter.yaml — it is gitignored by default.
+# ══════════════════════════════════════════════════════════════════════════════
+
+hunter:
+  handle: yourhandle            # your primary GitHub / tool handle
+  email: you@example.com
+  notes_tag: "#bb"
+
+platforms:
+  hackerone:
+    username: yourhandle        # your H1 handle (e.g. anom5x)
+    api_token: ${HACKERONE_API_TOKEN}
+    api_username: ${HACKERONE_API_USERNAME}
+  bugcrowd:
+    username: yourhandle        # your Bugcrowd handle
+    api_token: ${BUGCROWD_API_TOKEN}
+  intigriti:
+    username: yourhandle        # your Intigriti handle
+    api_token: ${INTIGRITI_API_TOKEN}
+  immunefi:
+    username: yourhandle        # your Immunefi handle (no API key currently)
+
+api_keys:
+  github: ${GITHUB_TOKEN}
+  gitlab: ${GITLAB_TOKEN}
+  shodan: ${SHODAN_API_KEY}
+  virustotal: ${VIRUSTOTAL_API_KEY}
+  chaos: ${CHAOS_KEY}
+  urlscan: ${URLSCAN_API_KEY}
+  censys_id: ${CENSYS_API_ID}
+  censys_secret: ${CENSYS_API_SECRET}
+  binaryedge: ${BINARYEDGE_API_KEY}
+  securitytrails: ${SECURITYTRAILS_API_KEY}
+  netlas: ${NETLAS_API_KEY}
+  whoisxml: ${WHOISXML_API_KEY}
+  leakix: ${LEAKIX_API_KEY}
+  fofa_key: ${FOFA_KEY}
+  fofa_email: ${FOFA_EMAIL}
+  intelx: ${INTELX_API_KEY}
+
+notify:
+  discord_webhook: ${DISCORD_WEBHOOK_URL}
+  slack_webhook: ${SLACK_WEBHOOK_URL}
+  telegram_token: ${TELEGRAM_API_KEY}
+  telegram_chat: ${TELEGRAM_CHAT_ID}
+
+tools:
+  searxng_url: http://localhost:8888
+  obsidian_key: ${OBSIDIAN_API_KEY}
+  obsidian_url: http://127.0.0.1:27123
+  resolvers: ~/resolvers.txt
+  seclists: ~/seclists
+
+hunt:
+  threads: 20
+  rate: 30                      # requests per second (be kind)
+  default_mode: full            # full | quick | stealth
+  out_root: ~/recon
+  collab_url: ${COLLAB_URL}     # interactsh URL for OOB callbacks
+
+subfinder_providers:
+  # Auto-synced to ~/.config/subfinder/provider-config.yaml
+  # Run: python3 tools/doctor.py --sync-subfinder
+  chaos: ${CHAOS_KEY}
+  github: ${GITHUB_TOKEN}
+  shodan: ${SHODAN_API_KEY}
+  virustotal: ${VIRUSTOTAL_API_KEY}
+  securitytrails: ${SECURITYTRAILS_API_KEY}
+  netlas: ${NETLAS_API_KEY}
+  leakix: ${LEAKIX_API_KEY}
+  censys: ${CENSYS_API_ID}:${CENSYS_API_SECRET}

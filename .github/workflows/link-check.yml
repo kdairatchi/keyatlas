@@ -1,0 +1,32 @@
+name: Check Links
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * 1'    # Weekly Monday 9am UTC
+  workflow_dispatch:
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links with lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >
+            --verbose
+            --no-progress
+            --accept 200,206,301,302,303,307,308,401,403,429
+            --exclude-loopback
+            --timeout 30
+            --retry-wait-time 5
+            --max-retries 3
+            --exclude "t.me"
+            --exclude "fonts.googleapis.com"
+            index.html README.md
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

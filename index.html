@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keyatlas — Bug Hunter API Key Reference</title>
+  <meta name="description" content="Every API key your bug bounty stack needs. Direct dashboard links, shell snippets, config templates. Always verified." />
+  <meta name="last-verified" content="2026-04-21" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-[#0d1117] text-[#c9d1d9] min-h-screen">
+
+  <!-- ── HERO ──────────────────────────────────────────────────────────────── -->
+  <header class="border-b border-[#30363d] bg-[#0d1117]">
+    <div class="max-w-6xl mx-auto px-4 py-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-3xl font-bold text-white font-mono">keyatlas</span>
+            <span class="badge badge-verified text-xs px-2 py-0.5 rounded font-mono">verified 2026-04-21</span>
+          </div>
+          <p class="text-[#8b949e] text-sm max-w-xl">
+            Every API key your bug bounty stack needs — direct dashboard links, shell export snippets, config templates, and rotation guidance. Dead links auto-checked weekly.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="legend-badge critical">🔴 Critical</span>
+            <span class="legend-badge high">🟡 High</span>
+            <span class="legend-badge medium">🟠 Medium</span>
+            <span class="legend-badge low">⚪ Low</span>
+          </div>
+        </div>
+        <div class="flex gap-2 flex-shrink-0">
+          <a href="templates/.env.example" download class="btn-secondary text-sm">
+            ↓ .env.example
+          </a>
+          <a href="templates/hunter.yaml.example" download class="btn-secondary text-sm">
+            ↓ hunter.yaml.example
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── SEARCH ─────────────────────────────────────────────────────────────── -->
+  <div class="max-w-6xl mx-auto px-4 pt-6">
+    <input
+      type="search"
+      id="search"
+      placeholder="Search keys, tools, env vars… (e.g. shodan, GITHUB_TOKEN, recon)"
+      class="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-4 py-2.5 text-sm text-[#c9d1d9] placeholder-[#484f58] focus:outline-none focus:border-[#58a6ff] transition-colors font-mono"
+    />
+  </div>
+
+  <!-- ── TABS ───────────────────────────────────────────────────────────────── -->
+  <div class="max-w-6xl mx-auto px-4 mt-6">
+    <div class="flex gap-1 border-b border-[#30363d] overflow-x-auto pb-0" id="tab-bar">
+      <button class="tab-btn active" data-tab="platforms">Platforms</button>
+      <button class="tab-btn" data-tab="recon">Recon</button>
+      <button class="tab-btn" data-tab="intel">Intel</button>
+      <button class="tab-btn" data-tab="notify">Notify</button>
+      <button class="tab-btn" data-tab="local">Local</button>
+    </div>
+  </div>
+
+  <!-- ── KEY DIRECTORY ──────────────────────────────────────────────────────── -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
+
+    <!-- PLATFORMS -->
+    <div id="tab-platforms" class="tab-panel">
+      <p class="text-xs text-[#8b949e] mb-4">Hunt platform credentials. These are required for /intel, MCP integrations, and submission tracking.</p>
+      <div class="key-grid">
+        <div class="key-card" data-search="hackerone h1 hackerone_api_token hackerone_api_username platform">
+          <div class="key-header">
+            <span class="key-name">HackerOne</span>
+            <span class="badge critical">Critical</span>
+          </div>
+          <p class="key-desc">Bug bounty platform — required for /intel, H1 MCP, Hacktivity lookups</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">HACKERONE_API_TOKEN</code>
+              <button class="copy-btn" data-copy="export HACKERONE_API_TOKEN=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+            <div class="var-row">
+              <code class="var-name">HACKERONE_API_USERNAME</code>
+              <button class="copy-btn" data-copy="export HACKERONE_API_USERNAME=&lt;YOUR_H1_HANDLE&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://hackerone.com/settings/api_token/edit" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: quarterly or on breach</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="bugcrowd dr34d platform bugcrowd_api_token">
+          <div class="key-header">
+            <span class="key-name">Bugcrowd</span>
+            <span class="badge critical">Critical</span>
+          </div>
+          <p class="key-desc">Bug bounty platform — required for Bugcrowd program intel and submission workflows</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">BUGCROWD_API_TOKEN</code>
+              <button class="copy-btn" data-copy="export BUGCROWD_API_TOKEN=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://bugcrowd.com/h/researcher/api_credentials" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: quarterly</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="intigriti platform intigriti_api_token">
+          <div class="key-header">
+            <span class="key-name">Intigriti</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">Bug bounty platform — personal access token for Intigriti program data</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">INTIGRITI_API_TOKEN</code>
+              <button class="copy-btn" data-copy="export INTIGRITI_API_TOKEN=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://app.intigriti.com/profile" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="immunefi web3 crypto blockchain platform">
+          <div class="key-header">
+            <span class="key-name">Immunefi</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Web3 bug bounty — no public API yet; use your handle directly in reports</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name text-[#484f58]">No API key — handle-based</code>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://immunefi.com" target="_blank" rel="noopener" class="get-key-btn">Dashboard →</a>
+            <span class="rotation-hint">N/A</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECON -->
+    <div id="tab-recon" class="tab-panel hidden">
+      <p class="text-xs text-[#8b949e] mb-4">Subdomain enumeration, OSINT, and attack surface discovery sources. More keys = more subdomains found.</p>
+      <div class="key-grid">
+
+        <div class="key-card" data-search="github pat personal access token github_token github-subdomains trufflehog recon">
+          <div class="key-header">
+            <span class="key-name">GitHub PAT</span>
+            <span class="badge critical">Critical</span>
+          </div>
+          <p class="key-desc">Personal Access Token — powers github-subdomains, trufflehog org scans, ghleaks, enumerepo</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">GITHUB_TOKEN</code>
+              <button class="copy-btn" data-copy="export GITHUB_TOKEN=&lt;YOUR_PAT&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: set expiry (90d) or annual</span>
+          </div>
+          <div class="key-note">Scopes needed: <code>repo, read:org, read:user, read:packages</code></div>
+        </div>
+
+        <div class="key-card" data-search="shodan shodan_api_key iot internet scan recon">
+          <div class="key-header">
+            <span class="key-name">Shodan</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">Internet-wide scan database — subfinder source, port/service discovery, SSL certs</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">SHODAN_API_KEY</code>
+              <button class="copy-btn" data-copy="export SHODAN_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://account.shodan.io" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: on breach</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="chaos projectdiscovery chaos_key subdomain corpus recon pdcp">
+          <div class="key-header">
+            <span class="key-name">ProjectDiscovery Cloud</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">Chaos subdomain corpus + PDCP services — massive pre-crawled subdomain dataset</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">CHAOS_KEY</code>
+              <button class="copy-btn" data-copy="export CHAOS_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://cloud.projectdiscovery.io" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="censys censys_api_id censys_api_secret certificate transparency scan recon">
+          <div class="key-header">
+            <span class="key-name">Censys</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">Internet scan + certificate transparency — subfinder source, host discovery</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">CENSYS_API_ID</code>
+              <button class="copy-btn" data-copy="export CENSYS_API_ID=&lt;YOUR_ID&gt;">Copy</button>
+            </div>
+            <div class="var-row">
+              <code class="var-name">CENSYS_API_SECRET</code>
+              <button class="copy-btn" data-copy="export CENSYS_API_SECRET=&lt;YOUR_SECRET&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://search.censys.io/me" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="securitytrails securitytrails_api_key dns history subdomain recon">
+          <div class="key-header">
+            <span class="key-name">SecurityTrails</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">DNS history, WHOIS, subdomain lookup — subfinder source with high accuracy</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">SECURITYTRAILS_API_KEY</code>
+              <button class="copy-btn" data-copy="export SECURITYTRAILS_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://securitytrails.com/app/account/credentials" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="netlas netlas_api_key internet scan recon subfinder">
+          <div class="key-header">
+            <span class="key-name">Netlas</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">Internet intelligence platform — subfinder source, alternative to Shodan</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">NETLAS_API_KEY</code>
+              <button class="copy-btn" data-copy="export NETLAS_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://app.netlas.io/profile/" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="gitlab gitlab_token personal access token subdomain recon">
+          <div class="key-header">
+            <span class="key-name">GitLab PAT</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">Personal Access Token — gitlab-subdomains source in subfinder</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">GITLAB_TOKEN</code>
+              <button class="copy-btn" data-copy="export GITLAB_TOKEN=&lt;YOUR_PAT&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://gitlab.com/-/profile/personal_access_tokens" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: set expiry or annual</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="binaryedge binaryedge_api_key internet scan subdomain recon">
+          <div class="key-header">
+            <span class="key-name">BinaryEdge</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Internet scan data — subfinder source, IPv4 full-scan data</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">BINARYEDGE_API_KEY</code>
+              <button class="copy-btn" data-copy="export BINARYEDGE_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://app.binaryedge.io/account/api" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="leakix leakix_api_key leak breach recon subfinder">
+          <div class="key-header">
+            <span class="key-name">LeakIX</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Exposed service and breach data — subfinder source for exposed services</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">LEAKIX_API_KEY</code>
+              <button class="copy-btn" data-copy="export LEAKIX_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://leakix.net" target="_blank" rel="noopener" class="get-key-btn">Dashboard →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+          <div class="key-note">After login → Account → API Key tab</div>
+        </div>
+
+        <div class="key-card" data-search="whoisxml whoisxmlapi whoisxml_api_key dns whois subdomain recon">
+          <div class="key-header">
+            <span class="key-name">WhoisXML API</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">WHOIS, DNS, subdomain data — subfinder source and domain intelligence</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">WHOISXML_API_KEY</code>
+              <button class="copy-btn" data-copy="export WHOISXML_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://www.whoisxmlapi.com/dashboard.php" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- INTEL -->
+    <div id="tab-intel" class="tab-panel hidden">
+      <p class="text-xs text-[#8b949e] mb-4">Threat intelligence, URL history, and CVE correlation. Used by waymore, intel_engine, and the MCP stack.</p>
+      <div class="key-grid">
+
+        <div class="key-card" data-search="virustotal virustotal_api_key vt malware threat intel subfinder waymore">
+          <div class="key-header">
+            <span class="key-name">VirusTotal</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">Malware intel + URL/domain reputation — subfinder source and waymore URL history</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">VIRUSTOTAL_API_KEY</code>
+              <button class="copy-btn" data-copy="export VIRUSTOTAL_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://www.virustotal.com/gui/my-apikey" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="urlscan urlscan_api_key url scan intel waymore">
+          <div class="key-header">
+            <span class="key-name">URLscan</span>
+            <span class="badge high">High</span>
+          </div>
+          <p class="key-desc">URL scanning and web page analysis — waymore URLSCAN source for URL history</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">URLSCAN_API_KEY</code>
+              <button class="copy-btn" data-copy="export URLSCAN_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://urlscan.io/user/profile" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="intelx intelligence x intelx_api_key darkweb intel osint">
+          <div class="key-header">
+            <span class="key-name">IntelX</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">Dark web + breach intelligence — exposed credentials, pastes, leaked data lookup</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">INTELX_API_KEY</code>
+              <button class="copy-btn" data-copy="export INTELX_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://intelx.io/account?tab=developer" target="_blank" rel="noopener" class="get-key-btn">Get key →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+        <div class="key-card" data-search="fofa fofa_key fofa_email chinese internet scan recon">
+          <div class="key-header">
+            <span class="key-name">FOFA</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Chinese internet scan database — alternative Shodan source, strong Asia-Pacific coverage</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">FOFA_KEY</code>
+              <button class="copy-btn" data-copy="export FOFA_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+            <div class="var-row">
+              <code class="var-name">FOFA_EMAIL</code>
+              <button class="copy-btn" data-copy="export FOFA_EMAIL=&lt;YOUR_EMAIL&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://fofa.info/api" target="_blank" rel="noopener" class="get-key-btn">API docs →</a>
+            <span class="rotation-hint">Rotate: annually</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NOTIFY -->
+    <div id="tab-notify" class="tab-panel hidden">
+      <p class="text-xs text-[#8b949e] mb-4">Webhook and bot integrations for hunt alerts. Optional but useful for long-running scans.</p>
+      <div class="key-grid">
+
+        <div class="key-card" data-search="discord discord_webhook_url webhook notify alert">
+          <div class="key-header">
+            <span class="key-name">Discord Webhook</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Post scan alerts, finding notifications, and tool errors to a Discord channel</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">DISCORD_WEBHOOK_URL</code>
+              <button class="copy-btn" data-copy="export DISCORD_WEBHOOK_URL=&lt;YOUR_WEBHOOK_URL&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://discord.com/developers/applications" target="_blank" rel="noopener" class="get-key-btn">Create webhook →</a>
+            <span class="rotation-hint">Rotate: on leak</span>
+          </div>
+          <div class="key-note">Server → Edit Channel → Integrations → Webhooks → New Webhook</div>
+        </div>
+
+        <div class="key-card" data-search="telegram telegram_api_key telegram_chat_id bot notify alert">
+          <div class="key-header">
+            <span class="key-name">Telegram Bot</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Send scan results and findings to your Telegram via a bot</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">TELEGRAM_API_KEY</code>
+              <button class="copy-btn" data-copy="export TELEGRAM_API_KEY=&lt;YOUR_BOT_TOKEN&gt;">Copy</button>
+            </div>
+            <div class="var-row">
+              <code class="var-name">TELEGRAM_CHAT_ID</code>
+              <button class="copy-btn" data-copy="export TELEGRAM_CHAT_ID=&lt;YOUR_CHAT_ID&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://t.me/BotFather" target="_blank" rel="noopener" class="get-key-btn">Create bot →</a>
+            <span class="rotation-hint">Rotate: on leak</span>
+          </div>
+          <div class="key-note">Chat ID: message <a href="https://t.me/userinfobot" target="_blank" class="text-[#58a6ff]">@userinfobot</a></div>
+        </div>
+
+        <div class="key-card" data-search="slack slack_webhook_url webhook notify alert">
+          <div class="key-header">
+            <span class="key-name">Slack Webhook</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Post scan alerts to a Slack workspace channel</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">SLACK_WEBHOOK_URL</code>
+              <button class="copy-btn" data-copy="export SLACK_WEBHOOK_URL=&lt;YOUR_WEBHOOK_URL&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://api.slack.com/apps" target="_blank" rel="noopener" class="get-key-btn">Create app →</a>
+            <span class="rotation-hint">Rotate: on leak</span>
+          </div>
+          <div class="key-note">App → Incoming Webhooks → Add New Webhook to Workspace</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LOCAL -->
+    <div id="tab-local" class="tab-panel hidden">
+      <p class="text-xs text-[#8b949e] mb-4">Tools and services that run on your local machine. Keys are generated locally — no external signup required.</p>
+      <div class="key-grid">
+
+        <div class="key-card" data-search="obsidian obsidian_api_key local rest api vault notes second brain">
+          <div class="key-header">
+            <span class="key-name">Obsidian Local REST API</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">Read/write your Obsidian vault — powers the /vault skill, hunt journal sync, leaderboard updates</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">OBSIDIAN_API_KEY</code>
+              <button class="copy-btn" data-copy="export OBSIDIAN_API_KEY=&lt;YOUR_KEY&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <span class="get-key-btn cursor-default">Local — see setup →</span>
+            <span class="rotation-hint">Rotate: via plugin settings</span>
+          </div>
+          <div class="key-note">
+            <strong>Setup:</strong> Obsidian → Settings → Community Plugins → Browse → "Local REST API" → Install → Enable → copy key from plugin settings page
+          </div>
+        </div>
+
+        <div class="key-card" data-search="oast interactsh collaborator collab_url out-of-band ssrf blind">
+          <div class="key-header">
+            <span class="key-name">OAST / Interactsh</span>
+            <span class="badge medium">Medium</span>
+          </div>
+          <p class="key-desc">Out-of-band (OOB) callback server — catch blind SSRF, blind XSS, blind XXE interactions</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">COLLAB_URL</code>
+              <button class="copy-btn" data-copy="export COLLAB_URL=&lt;YOUR_INTERACTSH_URL&gt;">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://github.com/projectdiscovery/interactsh" target="_blank" rel="noopener" class="get-key-btn">Self-host →</a>
+            <span class="rotation-hint">Rotate: per engagement</span>
+          </div>
+          <div class="key-note">
+            Quick start: <code>interactsh-client -v</code> — outputs your unique URL. Or use <code>interact.sh</code> (public server, use for testing only).
+          </div>
+        </div>
+
+        <div class="key-card" data-search="searxng searxng_base_url private search metasearch self-hosted">
+          <div class="key-header">
+            <span class="key-name">SearXNG (self-hosted)</span>
+            <span class="badge low">Low</span>
+          </div>
+          <p class="key-desc">Private metasearch — powers /search and /bb:research. No external API key; just the URL of your instance.</p>
+          <div class="key-vars">
+            <div class="var-row">
+              <code class="var-name">SEARXNG_BASE_URL</code>
+              <button class="copy-btn" data-copy="export SEARXNG_BASE_URL=http://localhost:8888">Copy</button>
+            </div>
+          </div>
+          <div class="key-footer">
+            <a href="https://docs.searxng.org/admin/installation.html" target="_blank" rel="noopener" class="get-key-btn">Install docs →</a>
+            <span class="rotation-hint">N/A — local URL</span>
+          </div>
+          <div class="key-note">Default: <code>http://localhost:8888</code> — change if your instance runs on a different port</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SHELL TEMPLATE ──────────────────────────────────────────────────── -->
+    <section class="mt-12 section-card">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">Shell Template (.zshrc / .bashrc)</h2>
+        <button class="copy-btn-large" id="copy-all-btn">Copy all</button>
+      </div>
+      <p class="text-xs text-[#8b949e] mb-4">Paste into your shell config. Fill in your actual keys. Never commit this file with real values.</p>
+      <pre id="shell-template" class="code-block"><code># ── Hunt Platform Credentials ────────────────────────────────────────
+export HACKERONE_API_TOKEN=&lt;YOUR_KEY&gt;
+export HACKERONE_API_USERNAME=&lt;YOUR_H1_HANDLE&gt;
+export BUGCROWD_API_TOKEN=&lt;YOUR_KEY&gt;
+export INTIGRITI_API_TOKEN=&lt;YOUR_KEY&gt;
+
+# ── Subdomain Recon ───────────────────────────────────────────────────
+export GITHUB_TOKEN=&lt;YOUR_PAT&gt;
+export SHODAN_API_KEY=&lt;YOUR_KEY&gt;
+export CHAOS_KEY=&lt;YOUR_KEY&gt;
+export CENSYS_API_ID=&lt;YOUR_ID&gt;
+export CENSYS_API_SECRET=&lt;YOUR_SECRET&gt;
+export SECURITYTRAILS_API_KEY=&lt;YOUR_KEY&gt;
+export NETLAS_API_KEY=&lt;YOUR_KEY&gt;
+export GITLAB_TOKEN=&lt;YOUR_PAT&gt;
+export BINARYEDGE_API_KEY=&lt;YOUR_KEY&gt;
+export LEAKIX_API_KEY=&lt;YOUR_KEY&gt;
+export WHOISXML_API_KEY=&lt;YOUR_KEY&gt;
+
+# ── Threat Intel ─────────────────────────────────────────────────────
+export VIRUSTOTAL_API_KEY=&lt;YOUR_KEY&gt;
+export URLSCAN_API_KEY=&lt;YOUR_KEY&gt;
+export INTELX_API_KEY=&lt;YOUR_KEY&gt;
+export FOFA_KEY=&lt;YOUR_KEY&gt;
+export FOFA_EMAIL=&lt;YOUR_EMAIL&gt;
+
+# ── Notifications ────────────────────────────────────────────────────
+export DISCORD_WEBHOOK_URL=&lt;YOUR_WEBHOOK_URL&gt;
+export TELEGRAM_API_KEY=&lt;YOUR_BOT_TOKEN&gt;
+export TELEGRAM_CHAT_ID=&lt;YOUR_CHAT_ID&gt;
+export SLACK_WEBHOOK_URL=&lt;YOUR_WEBHOOK_URL&gt;
+
+# ── Local Tools ──────────────────────────────────────────────────────
+export OBSIDIAN_API_KEY=&lt;YOUR_KEY&gt;
+export COLLAB_URL=&lt;YOUR_INTERACTSH_URL&gt;
+export SEARXNG_BASE_URL=http://localhost:8888</code></pre>
+    </section>
+
+    <!-- ── SUBFINDER CONFIG ────────────────────────────────────────────────── -->
+    <section class="mt-6 section-card">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="section-title">subfinder provider-config.yaml</h2>
+        <button class="copy-btn-large" id="copy-subfinder-btn">Copy</button>
+      </div>
+      <p class="text-xs text-[#8b949e] mb-4">File location: <code class="text-[#79c0ff]">~/.config/subfinder/provider-config.yaml</code> — or use <code class="text-[#79c0ff]">doctor.py --sync-subfinder</code> to auto-fill from env vars.</p>
+      <pre id="subfinder-template" class="code-block"><code>github:
+  - &lt;GITHUB_TOKEN&gt;
+shodan:
+  - &lt;SHODAN_API_KEY&gt;
+chaos:
+  - &lt;CHAOS_KEY&gt;
+censys:
+  - &lt;CENSYS_API_ID&gt;:&lt;CENSYS_API_SECRET&gt;
+securitytrails:
+  - &lt;SECURITYTRAILS_API_KEY&gt;
+netlas:
+  - &lt;NETLAS_API_KEY&gt;
+virustotal:
+  - &lt;VIRUSTOTAL_API_KEY&gt;
+binaryedge:
+  - &lt;BINARYEDGE_API_KEY&gt;
+leakix:
+  - &lt;LEAKIX_API_KEY&gt;</code></pre>
+    </section>
+
+    <!-- ── INTEGRATION GUIDE ───────────────────────────────────────────────── -->
+    <section class="mt-6 section-card">
+      <h2 class="section-title mb-4">Integration Setup</h2>
+      <div class="integration-tabs">
+        <button class="int-tab active" data-int="prowlr">Prowlr Stack</button>
+        <button class="int-tab" data-int="subfinder">subfinder</button>
+        <button class="int-tab" data-int="waymore">waymore</button>
+        <button class="int-tab" data-int="nuclei">nuclei</button>
+      </div>
+
+      <div id="int-prowlr" class="int-panel">
+        <ol class="setup-list">
+          <li>Clone: <code>git clone https://github.com/kdairatchi/claude-bug-bounty ~/claude-bug-bounty</code></li>
+          <li>Copy template: <code>cp templates/hunter.yaml.example ~/claude-bug-bounty/config/hunter.yaml</code></li>
+          <li>Add env vars to <code>~/.zshrc</code> using the Shell Template above</li>
+          <li>Run: <code>bash ~/claude-bug-bounty/install.sh</code></li>
+          <li>Verify: <code>python3 ~/claude-bug-bounty/tools/doctor.py --section env</code></li>
+        </ol>
+      </div>
+
+      <div id="int-subfinder" class="int-panel hidden">
+        <ol class="setup-list">
+          <li>Install: <code>go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest</code></li>
+          <li>Create config dir: <code>mkdir -p ~/.config/subfinder</code></li>
+          <li>Copy the subfinder block above to: <code>~/.config/subfinder/provider-config.yaml</code></li>
+          <li>Fill in your actual keys (remove angle brackets)</li>
+          <li>Test: <code>subfinder -d example.com -all -v 2>&amp;1 | grep "source"</code> — verify sources appear</li>
+        </ol>
+      </div>
+
+      <div id="int-waymore" class="int-panel hidden">
+        <ol class="setup-list">
+          <li>Install: <code>pip3 install waymore</code></li>
+          <li>Config file: <code>~/.config/waymore/config.yml</code></li>
+          <li>Add keys:<pre class="code-block-sm">URLSCAN_API_KEY: &lt;YOUR_URLSCAN_KEY&gt;
+VIRUSTOTAL_API_KEY: &lt;YOUR_VT_KEY&gt;</pre></li>
+          <li>Test: <code>waymore -i example.com -mode U</code></li>
+        </ol>
+      </div>
+
+      <div id="int-nuclei" class="int-panel hidden">
+        <ol class="setup-list">
+          <li>Install: <code>go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest</code></li>
+          <li>No API key needed for core scanning</li>
+          <li>Update templates: <code>nuclei -update-templates</code></li>
+          <li>PDCP integration (optional): set <code>CHAOS_KEY</code> and use <code>nuclei -cloud-list</code></li>
+          <li>Test: <code>echo "https://example.com" | nuclei -t http/technologies/ -silent</code></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ── ROTATION GUIDE ──────────────────────────────────────────────────── -->
+    <section class="mt-6 section-card">
+      <h2 class="section-title mb-4">Key Rotation Guide</h2>
+      <div class="overflow-x-auto">
+        <table class="rotation-table w-full text-sm">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Recommended Interval</th>
+              <th>Trigger immediately if…</th>
+              <th>Where to rotate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>HackerOne</td><td>Quarterly</td><td>Token visible in logs, public repo, or report</td><td><a href="https://hackerone.com/settings/api_token/edit" target="_blank" class="link">Settings → API token</a></td></tr>
+            <tr><td>GitHub PAT</td><td>Set expiry (90d) or annually</td><td>Pushed to public repo (GitHub alerts you)</td><td><a href="https://github.com/settings/tokens" target="_blank" class="link">Settings → Tokens</a></td></tr>
+            <tr><td>Shodan</td><td>On breach only</td><td>Unexpected API quota drain</td><td><a href="https://account.shodan.io" target="_blank" class="link">Account page</a></td></tr>
+            <tr><td>Bugcrowd</td><td>Quarterly</td><td>Token in public code or logs</td><td><a href="https://bugcrowd.com/h/researcher/api_credentials" target="_blank" class="link">Profile → API</a></td></tr>
+            <tr><td>Discord Webhook</td><td>On leak only</td><td>Spam messages in your channel</td><td>Channel → Integrations → Webhooks → delete + recreate</td></tr>
+            <tr><td>VirusTotal</td><td>Annually</td><td>Quota exhausted unexpectedly</td><td><a href="https://www.virustotal.com/gui/my-apikey" target="_blank" class="link">My API key</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── ROADMAP ─────────────────────────────────────────────────────────── -->
+    <section class="mt-6 mb-12 roadmap-callout">
+      <div class="flex items-start gap-3">
+        <span class="text-xl">🗺️</span>
+        <div>
+          <h3 class="font-semibold text-white text-sm mb-1">Roadmap</h3>
+          <ul class="text-xs text-[#8b949e] space-y-1">
+            <li><strong class="text-[#c9d1d9]">Phase 2</strong> — Browser localStorage key manager: paste your keys, page generates ready-to-use config files, nothing sent to any server</li>
+            <li><strong class="text-[#c9d1d9]">Phase 3</strong> — Rotation reminders + in-browser API ping validation + .env / hunter.yaml download generator</li>
+          </ul>
+          <p class="text-xs text-[#484f58] mt-2">
+            PRs welcome at <a href="https://github.com/kdairatchi/keyatlas" target="_blank" class="text-[#58a6ff] hover:underline">github.com/kdairatchi/keyatlas</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+  <footer class="border-t border-[#30363d] py-6 text-center text-xs text-[#484f58]">
+    <p>
+      <a href="https://github.com/kdairatchi/keyatlas" class="text-[#58a6ff] hover:underline" target="_blank">keyatlas</a>
+      by <a href="https://github.com/kdairatchi" class="text-[#58a6ff] hover:underline" target="_blank">kdairatchi</a>
+      · Links verified 2026-04-21 · Dead links checked weekly via lychee
+      · <a href="https://github.com/kdairatchi/keyatlas/issues/new?template=dead-link.md" class="text-[#58a6ff] hover:underline" target="_blank">Report dead link</a>
+    </p>
+  </footer>
+
+  <div id="toast" class="toast hidden">Copied!</div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
