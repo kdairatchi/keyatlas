@@ -26,6 +26,7 @@ jobs:
             --max-retries 3
             --exclude "t.me"
             --exclude "fonts.googleapis.com"
+            --exclude "kdairatchi.github.io"
             index.html README.md
           fail: true
         env:
